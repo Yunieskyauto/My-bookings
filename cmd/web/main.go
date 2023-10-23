@@ -22,7 +22,7 @@ func main() {
 	app.TemplateCache = tc
 
 	app.UseCache = false
-	repo := handlers.MewRepo(&app)
+	repo := handlers.NewRepo(&app)
 	handlers.NewHandlers(repo)
 
 	render.NewTemplates(&app)

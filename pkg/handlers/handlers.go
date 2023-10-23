@@ -17,7 +17,7 @@ type Repository struct {
 }
 
 // NewRepo creates a new repository
-func MewRepo(a *config.AppConfig) *Repository {
+func NewRepo(a *config.AppConfig) *Repository {
 	return &Repository{
 		App: a,
 	}
