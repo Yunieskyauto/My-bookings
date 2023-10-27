@@ -62,6 +62,8 @@
     
 
     <div class="container">
+
+
         <div class="row">
             <div class="col">
                 <h1 class="mt-3">Search for Availability</h1>
@@ -90,11 +92,21 @@
                     <button type="submit" class="btn btn-primary">Search Availability</button>
 
                 </form>
-        
+
             </div>
         </div>
 
+   <div class="row">
+       <div class="col">
+           <p id="myParagraph">This is some text</p>
+           <p>
+               <button id="colorButton" class="btn btn-outline-secondary">Click me</button>
+           </p>
+       </div>
+   </div>
+
     </div>
+
 
 
     <footer class="my-footer">
@@ -120,7 +132,32 @@
         integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" 
         crossorigin="anonymous"></script>
 
+   <script>
 
+       // Example starter JavaScript for disabling form submissions if there are invalid fields
+       (() => {
+           'use strict'
+
+           // Fetch all the forms we want to apply custom Bootstrap validation styles to
+           const forms = document.querySelectorAll('.needs-validation')
+
+           // Loop over them and prevent submission
+           Array.from(forms).forEach(form => {
+               form.addEventListener('submit', event => {
+                   if (!form.checkValidity()) {
+                       event.preventDefault()
+                       event.stopPropagation()
+                   }
+
+                   form.classList.add('was-validated')
+               }, false)
+           })
+       })()
+
+       document.getElementById("colorButton").addEventListener("click", function () {
+
+       })
+   </script>
     </body>
 
     </html>
