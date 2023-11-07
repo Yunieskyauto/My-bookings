@@ -4,12 +4,11 @@ import (
 	"fmt"
 	"github.com/alexedwards/scs/v2"
 	"log"
+	"mybookings.com/internal/config"
+	"mybookings.com/internal/handlers"
+	"mybookings.com/internal/render"
 	"net/http"
 	"time"
-
-	"mybookings.com/config"
-	"mybookings.com/pkg/handlers"
-	"mybookings.com/pkg/render"
 )
 
 const portNumber = ":8080"

@@ -5,11 +5,10 @@ import (
 	"github.com/justinas/nosurf"
 	"html/template"
 	"log"
+	"mybookings.com/internal/config"
+	"mybookings.com/internal/models"
 	"net/http"
 	"path/filepath"
-
-	"mybookings.com/config"
-	"mybookings.com/models"
 )
 
 var app *config.AppConfig

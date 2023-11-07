@@ -4,11 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"mybookings.com/internal/config"
+	"mybookings.com/internal/models"
+	"mybookings.com/internal/render"
 	"net/http"
-
-	"mybookings.com/config"
-	"mybookings.com/models"
-	"mybookings.com/pkg/render"
 )
 
 // Repo the repository used by the handlers
