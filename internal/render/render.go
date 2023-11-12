@@ -2,6 +2,7 @@ package render
 
 import (
 	"bytes"
+	"fmt"
 	"github.com/justinas/nosurf"
 	"html/template"
 	"log"
@@ -11,7 +12,10 @@ import (
 	"path/filepath"
 )
 
+var functions = template.FuncMap{}
+
 var app *config.AppConfig
+var pathToTemplates = "./templates"
 
 // NewTemplates sets the config for the template package
 func NewTemplates(a *config.AppConfig) {
@@ -62,7 +66,7 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 	myCache := map[string]*template.Template{}
 
 	// get all the files named *.page.html from ./templates
-	pages, err := filepath.Glob("./templates/*.page.html")
+	pages, err := filepath.Glob(fmt.Sprintf("%s/*.page.html", pathToTemplates))
 	if err != nil {
 		return myCache, err
 	}
@@ -70,19 +74,19 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 	// range through all files ending with *.page.html
 	for _, page := range pages {
 		name := filepath.Base(page)
-		ts, err := template.New(name).ParseFiles(page)
+		ts, err := template.New(name).Funcs(functions).ParseFiles(page)
 		// until here I gat the name of the file I l currently at exp(home.page.html)
 		if err != nil {
 			return myCache, err
 		}
 
-		maches, err := filepath.Glob("./templates/*.layout.html")
+		matches, err := filepath.Glob(fmt.Sprintf("%s/*.layout.html", pathToTemplates))
 		if err != nil {
 			return myCache, err
 		}
 
-		if len(maches) > 0 {
-			ts, err = ts.ParseGlob("./templates/*.layout.html")
+		if len(matches) > 0 {
+			ts, err = ts.ParseGlob(fmt.Sprintf("%s/*.layout.html", pathToTemplates))
 			if err != nil {
 				return myCache, err
 			}
