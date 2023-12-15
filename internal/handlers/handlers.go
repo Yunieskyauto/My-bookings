@@ -6,6 +6,7 @@ import (
 	"log"
 	"mybookings.com/internal/config"
 	"mybookings.com/internal/forms"
+	"mybookings.com/internal/helpers"
 	"mybookings.com/internal/models"
 	"mybookings.com/internal/render"
 	"net/http"
@@ -77,7 +78,8 @@ func (m *Repository) AvailabilityJSON(w http.ResponseWriter, r *http.Request) {
 
 	out, err := json.MarshalIndent(resp, "", "      ")
 	if err != nil {
-		log.Println(err)
+		helpers.ServerError(w, err)
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -105,7 +107,7 @@ func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
 func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {
-		log.Println(err)
+		helpers.ServerError(w, err)
 		return
 	}
 	reservation := models.Reservation{
@@ -139,6 +141,7 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 func (m *Repository) ReservationSummary(w http.ResponseWriter, r *http.Request) {
 	reservation, ok := m.App.Session.Get(r.Context(), "reservation").(models.Reservation)
 	if !ok {
+		m.App.ErrorLog.Println("Can't get error from session")
 		log.Println("cannot get item from session")
 		m.App.Session.Put(r.Context(), "error", "Can't get the reservation from session")
 		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
