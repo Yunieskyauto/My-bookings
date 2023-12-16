@@ -3,6 +3,7 @@ package render
 import (
 	"encoding/gob"
 	"github.com/alexedwards/scs/v2"
+	"log"
 	"mybookings.com/internal/config"
 	"mybookings.com/internal/models"
 	"net/http"
@@ -19,6 +20,12 @@ func TestMain(m *testing.M) {
 	gob.Register(models.Reservation{})
 	// change this to true when in production
 	testApp.InProduction = false
+
+	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
+	testApp.InfoLog = infoLog
+
+	errorLog := log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
+	testApp.ErrorLog = errorLog
 
 	session = scs.New()
 	session.Lifetime = 24 * time.Hour
