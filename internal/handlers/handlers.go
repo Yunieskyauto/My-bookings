@@ -5,10 +5,13 @@ import (
 	"fmt"
 	"log"
 	"mybookings.com/internal/config"
+	"mybookings.com/internal/driver"
 	"mybookings.com/internal/forms"
 	"mybookings.com/internal/helpers"
 	"mybookings.com/internal/models"
 	"mybookings.com/internal/render"
+	"mybookings.com/internal/repository"
+	"mybookings.com/internal/repository/dbrepo"
 	"net/http"
 )
 
@@ -18,12 +21,14 @@ var Repo *Repository
 // Repository is the repository type
 type Repository struct {
 	App *config.AppConfig
+	DB  repository.DatabaseRepo
 }
 
 // NewRepo creates a new repository
-func NewRepo(a *config.AppConfig) *Repository {
+func NewRepo(a *config.AppConfig, db *driver.DB) *Repository {
 	return &Repository{
 		App: a,
+		DB:  dbrepo.NewPostgresRepo(db.SQL, a),
 	}
 }
 
