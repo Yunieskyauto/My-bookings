@@ -58,7 +58,7 @@ func (m *postgresDBRepo) InsertRoomRestriction(r models.RoomRestriction) error {
 	defer cancel()
 
 	stmt := `insert into room_restrictions (start_date, end_date, room_id, reservation_id, 
-                               created_at, updated_at, restriction_id)
+                               restriction_id, created_at, updated_at)
                           values ($1, $2, $3, $4, $5, $6, $7)`
 
 	_, err := m.DB.ExecContext(ctx, stmt,
@@ -66,9 +66,9 @@ func (m *postgresDBRepo) InsertRoomRestriction(r models.RoomRestriction) error {
 		r.EndDate,
 		r.RoomID,
 		r.ReservationID,
-		time.Now(),
-		time.Now(),
 		r.RestrictionID,
+		time.Now(),
+		time.Now(),
 	)
 
 	if err != nil {
