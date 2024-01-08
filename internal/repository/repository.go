@@ -1,11 +1,15 @@
 package repository
 
-import "mybookings.com/internal/models"
+import (
+	"mybookings.com/internal/models"
+	"time"
+)
 
 type DatabaseRepo interface {
 	AllUsers() bool
-
 	InsertReservation(reservation models.Reservation) (int, error)
-
 	InsertRoomRestriction(r models.RoomRestriction) error
+	SearchAvailabilityByDateByRoomID(start, end time.Time, roomID int) (bool, error)
+	SearchAvailabilityForAllRooms(start, end time.Time) ([]models.Room, error)
+	GetRoomByID(id int) (models.Room, error)
 }
