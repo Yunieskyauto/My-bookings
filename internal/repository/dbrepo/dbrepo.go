@@ -103,7 +103,7 @@ func (m *postgresDBRepo) SearchAvailabilityByDateByRoomID(start, end time.Time, 
 	if numRows == 0 {
 		return true, nil
 	}
-	return true, nil
+	return false, nil
 
 }
 
